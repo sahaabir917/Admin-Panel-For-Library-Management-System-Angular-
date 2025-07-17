@@ -1,0 +1,119 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" [routerLink]="['/dashboard']">Dashboard</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a
+            class="nav-link active"
+            aria-current="page"
+            [routerLink]="['/addRoom']"
+            >Add Room</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/addBook']">Add Book</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container py-5">
+  <div class="row justify-content-center align-items-center">
+    <!-- Left Section: Login Form -->
+    <div class="col-md-12 p-4 shadow rounded bg-light">
+      <h3 class="mb-4 text-center text-primary">Add New Room Information</h3>
+
+      <form [formGroup]="RoomFormGroup" (ngSubmit)="OnSubmit()">
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label"
+            >Room Number</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            formControlName="roomName"
+            id="exampleFormControlInput1"
+            placeholder="Enter Room Name"
+          />
+        </div>
+
+        <!-- <div class="mb-4">
+          <label for="password1" class="form-label">Availability</label>
+          <input
+            type="text"
+            class="form-control"
+            id="password1"
+            formControlName="availability"
+            placeholder="Enter availability"
+          />
+        </div> -->
+
+        <div class="mb-4">
+          <label for="exampleFormControlInput1" class="form-label"
+            >Availability</label
+          >
+          <select
+            class="form-select form-select-lg mb-3"
+            aria-label="Large select example"
+            formControlName="availability"
+          >
+            <option value="Available">Available</option>
+            <option value="occupied">occupied</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label for="password1" class="form-label">Capacity</label>
+          <input
+            type="number"
+            class="form-control"
+            id="password1"
+            formControlName="capacity"
+            placeholder="Enter Capacity"
+          />
+        </div>
+
+        <div class="mb-4">
+          <label for="password1" class="form-label">Room Type</label>
+          <select
+            class="form-select form-select-lg mb-3"
+            aria-label="Large select example"
+            formControlName="roomType"
+          >
+            <option value="Study Room">Study Room</option>
+            <option value="Group Study Room">Group Study Room</option>
+            <option value="Computer Lab">Computer Lab</option>
+            <option value="Conference Room">Conference Room</option>
+            <option value="AV Room / Media Room">AV Room / Media Room</option>
+            <option value="Research Room">Research Room</option>
+            <option value="Presentation Practice Room">
+              Presentation Practice Room
+            </option>
+          </select>
+        </div>
+
+        <div class="d-grid">
+          <button
+            type="submit"
+            [disabled]="RoomFormGroup.invalid"
+            class="btn btn-primary"
+          >
+            Add Room
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

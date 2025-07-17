@@ -1,0 +1,24 @@
+.container {
+  padding: 20px;
+  min-height: 100vh; /* Full screen height */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  /* background-color: #f5f5f5;  Optional light background */
+}
+
+table {
+  width: 100%;
+}
+
+th,
+td {
+  border: 1px solid #e0e0e0; /* Light cell borders */
+  padding: 8px;
+  text-align: left;
+}
+
+mat-paginator {
+  margin-top: 20px;
+}

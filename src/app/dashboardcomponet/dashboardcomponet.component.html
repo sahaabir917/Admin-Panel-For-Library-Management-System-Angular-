@@ -1,0 +1,292 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" [routerLink]="['/dashboard']">Dashboard</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a
+            class="nav-link active"
+            aria-current="page"
+            [routerLink]="['/addRoom']"
+            >Add Room</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/addBook']">Add Book</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-5">
+      <h2 class="mb-3">Room List</h2>
+
+      <!-- <mat-form-field appearance="outline" class="w-100 mb-3">
+        <mat-label>Filter rooms</mat-label>
+        <input
+          matInput
+          (keyup)="applyFilter($event)"
+          placeholder="Type to filter"
+        />
+      </mat-form-field> -->
+
+      <div class="d-flex justify-content-end align-items-center mb-3">
+        <label class="me-2 mb-0">Search:</label>
+        <mat-form-field appearance="outline" class="compact-search">
+          <input matInput placeholder="Search" (keyup)="applyFilter($event)" />
+        </mat-form-field>
+      </div>
+
+      <div class="table-container">
+        <table
+          mat-table
+          [dataSource]="dataSource"
+          matSort
+          class="mat-elevation-z8 table table-bordered"
+        >
+          <!-- ID Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+            <td mat-cell *matCellDef="let room">{{ room.id }}</td>
+          </ng-container>
+
+          <!-- Room Name Column -->
+          <ng-container matColumnDef="room_name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Room Name</th>
+            <td mat-cell *matCellDef="let room">{{ room.roomName }}</td>
+          </ng-container>
+
+          <!-- Capacity Column -->
+          <ng-container matColumnDef="capacity">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Capacity</th>
+            <td mat-cell *matCellDef="let room">{{ room.capacity }}</td>
+          </ng-container>
+
+          <!-- Room Type Column -->
+          <ng-container matColumnDef="room_type">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+            <td mat-cell *matCellDef="let room">{{ room.roomType }}</td>
+          </ng-container>
+
+          <!-- Availability Column -->
+          <ng-container matColumnDef="availability">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Availability
+            </th>
+            <td mat-cell *matCellDef="let room">{{ room.availability }}</td>
+          </ng-container>
+
+          <!-- Header & Row -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+        <mat-paginator
+          #paginatorRoom
+          [pageSize]="5"
+          [pageSizeOptions]="[5, 10, 20]"
+        ></mat-paginator>
+      </div>
+    </div>
+
+    <div class="col-md-7">
+      <h2 class="mb-3">Books List</h2>
+
+      <mat-form-field appearance="outline" class="w-100 mb-3">
+        <mat-label>Filter books</mat-label>
+        <input
+          matInput
+          (keyup)="applyBookFilter($event)"
+          placeholder="Type to filter"
+        />
+      </mat-form-field>
+
+      <div class="table-container">
+        <table
+          mat-table
+          [dataSource]="dataSourceForBook"
+          matSort
+          class="mat-elevation-z8 table table-bordered"
+        >
+          <!-- ID Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+            <td mat-cell *matCellDef="let book">{{ book.id }}</td>
+          </ng-container>
+
+          <!-- Title Column -->
+          <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+            <td mat-cell *matCellDef="let book">{{ book.title }}</td>
+          </ng-container>
+
+          <!-- Author Column -->
+          <ng-container matColumnDef="author">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Author</th>
+            <td mat-cell *matCellDef="let book">{{ book.author }}</td>
+          </ng-container>
+
+          <!-- ISBN -->
+          <ng-container matColumnDef="isbn">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>ISBN</th>
+            <td mat-cell *matCellDef="let book">{{ book.isbn }}</td>
+          </ng-container>
+
+          <!-- Category -->
+          <ng-container matColumnDef="category">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
+            <td mat-cell *matCellDef="let book">{{ book.category }}</td>
+          </ng-container>
+
+          <!-- Publisher -->
+          <ng-container matColumnDef="publisher">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Publisher</th>
+            <td mat-cell *matCellDef="let book">{{ book.publisher }}</td>
+          </ng-container>
+
+          <!-- Total Copies -->
+          <ng-container matColumnDef="total_copies">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Total Copies
+            </th>
+            <td mat-cell *matCellDef="let book">{{ book.total_copies }}</td>
+          </ng-container>
+
+          <!-- Available Copy -->
+          <ng-container matColumnDef="available_copy">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Available</th>
+            <td mat-cell *matCellDef="let book">{{ book.available_copy }}</td>
+          </ng-container>
+
+          <!-- Header & Row -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsForBooks"></tr>
+          <tr
+            mat-row
+            *matRowDef="let row; columns: displayedColumnsForBooks"
+          ></tr>
+        </table>
+
+        <mat-paginator
+          #paginatorBook
+          [pageSize]="5"
+          [pageSizeOptions]="[5, 10, 20]"
+        ></mat-paginator>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-12">
+      <h2 class="mb-3">Issued Book List</h2>
+
+      <mat-form-field appearance="outline" class="w-100 mb-3">
+        <mat-label>Filter Issued Books</mat-label>
+        <input
+          matInput
+          (keyup)="applyIssuedBookFilter($event)"
+          placeholder="Type to filter"
+        />
+      </mat-form-field>
+
+      <div class="table-container">
+        <table
+          mat-table
+          [dataSource]="dataSourceForIssueBooks"
+          matSort
+          class="mat-elevation-z8 table table-bordered"
+        >
+          <!-- ID Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+            <td mat-cell *matCellDef="let issuebooks">{{ issuebooks.id }}</td>
+          </ng-container>
+
+          <!-- Issue Date Column -->
+          <ng-container matColumnDef="issueDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Issue Date
+            </th>
+            <td mat-cell *matCellDef="let issuebooks">
+              {{ issuebooks.issueDate }}
+            </td>
+          </ng-container>
+
+          <!-- Due Date Column -->
+          <ng-container matColumnDef="dueDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Due Date</th>
+            <td mat-cell *matCellDef="let issuebook">
+              {{ issuebook.dueDate }}
+            </td>
+          </ng-container>
+
+          <!-- Return Date Column -->
+          <ng-container matColumnDef="returnDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Return Date
+            </th>
+            <td mat-cell *matCellDef="let issuebook">
+              {{ issuebook.returnDate }}
+            </td>
+          </ng-container>
+
+          <!-- Fine Column -->
+          <ng-container matColumnDef="fine">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Fine</th>
+            <td mat-cell *matCellDef="let issuebook">{{ issuebook.fine }}</td>
+          </ng-container>
+
+          <!-- Status Column -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+            <td mat-cell *matCellDef="let issuebook">{{ issuebook.status }}</td>
+          </ng-container>
+
+          <!-- Book Title Column -->
+          <ng-container matColumnDef="book_title">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Book</th>
+            <td mat-cell *matCellDef="let issuebook">
+              {{ issuebook.book.title }}
+            </td>
+          </ng-container>
+
+          <!-- Member Name Column -->
+          <ng-container matColumnDef="member_name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Member</th>
+            <td mat-cell *matCellDef="let issuebook">
+              {{ issuebook.member.name }}
+            </td>
+          </ng-container>
+
+          <tr
+            mat-header-row
+            *matHeaderRowDef="displayedColumnsForIssueBook"
+          ></tr>
+          <tr
+            mat-row
+            *matRowDef="let row; columns: displayedColumnsForIssueBook"
+          ></tr>
+        </table>
+
+        <mat-paginator
+          #paginatorIssueBook
+          [pageSize]="5"
+          [pageSizeOptions]="[5, 10, 20]"
+        ></mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>
